@@ -11,15 +11,29 @@ add click area around close X
 h1 {
     font-size: 2.3em;
     margin-top: 2em;
+    text-align: right;
 }
 h2 {
     font-size: 1.9em;
 }
 h3 {
+    position: relative;
+    text-align: center;
+    padding-top: 1em;
+    grid-column: 1/-1;
     font-size: 1.7em;
     margin-bottom: 1em;
-    height: 3em;
-    cursor: pointer;
+    height: 4em;
+    cursor: s-resize;
+    filter: contrast(3) saturate(1.8) sepia(.6);
+}
+h3.cursor {
+    cursor: n-resize;
+}
+h3 p {
+    position: absolute;
+    top: 4em;
+    color: #333;
 }
 h4 {
     font-size: 1.3em;
@@ -33,12 +47,9 @@ body {
     grid-row-gap: 2em;
     padding: 1em 3%;
 }
-h1, h3 {
-    grid-column: 1/-1;
-}
 nav {
     position: fixed;
-    right: 0;
+    left: 2vw;
     z-index: 7;
 }
 button {
@@ -62,11 +73,10 @@ button.on {
     position: relative;
 }
 .category {
-    height: 23vw;
-    min-height: 3em;
+    height: 9em;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 23vw auto;
+    grid-template-rows: 9em auto;
 }
 .category.expand {
     height: auto;

@@ -1,4 +1,6 @@
-/************ click on category, expand that category ***********/
+let backgroundImg = "";
+let backgroundImgNr = 0;
+
 let soldOuts = document.querySelectorAll('.sold-out-status');
 
 ////////////////check extra info /////////////////
@@ -7,7 +9,6 @@ let soldOut = document.querySelectorAll('.sold-out-status');
 let vegetar = document.querySelectorAll('.veg-status');
 let alcohol = document.querySelectorAll('.alcohol-status');
 let allergens = document.querySelectorAll('.allergens');
-
 
 ///////////////// show long description when click on read-more ///////////////
 let readMore = document.querySelectorAll('.read-more');
@@ -129,7 +130,6 @@ function filterSoldOut(){
         }
     }
 }
-
 // discount
 let onlyShowDiscount = false;
 let discountButton = document.querySelector('button.discount');
@@ -156,7 +156,7 @@ function filterDiscount(){
 }
 // end of filters
 
-// sold-outs when shown
+// sold-outs when shown ////// need to change style
 soldOuts.forEach(dimSoldOut);
 function dimSoldOut(s){
     if(s.textContent){
@@ -184,16 +184,6 @@ function showStars(n){
         let allFilled = filledStar.repeat(filledStarNr);
         let allEmpty = emptyStar.repeat(5-filledStarNr);
         n.innerHTML = allFilled + allEmpty;
-
-    /* !!!!!!! if only change innerHtml using html entities, the entity will be displayed as text. SOMETIMES
-        let filledStar = document.createTextNode('&starf; '); // !!!!!!! if only change innerHtml using html entities, the entity will be displayed as text// turns out it's working
-        let filledStarNr = parseInt(n.textContent);
-        console.log(filledStar);
-        let allFilled = filledStar.data.repeat(filledStarNr);
-        let emptyStar = document.createTextNode('&star; ');
-        let allEmpty = emptyStar.data.repeat(5-filledStarNr);
-        n.innerHTML = allFilled + allEmpty;
-    */
     } else {
         n.innerHTML = "&star; &star; &star; &star; &star;";
     }
@@ -209,7 +199,7 @@ function showCate(c){
             const categoryTemplate = document.querySelector('.category-template').content;
             const categoryClone = categoryTemplate.cloneNode(true);
             let cateSec = categoryClone.querySelector('.category').classList.add(cat);
-            categoryClone.querySelector('h3').textContent = cat.toUpperCase();
+            categoryClone.querySelector('h3 p').textContent = cat.toUpperCase();
             const categoryList = document.querySelector('#category-list');
             categoryList.appendChild(categoryClone);
             /* show only courses with in category*/
@@ -220,38 +210,45 @@ function showCate(c){
                     if(eachCourse.category === cat){
                         const courseTemplate = document.querySelector('.course-template').content;
                         const courseClone = courseTemplate.cloneNode(true);
-                        const courseList = document.querySelector('.category.' + cat + ' .course-list');
+                        let courseList = document.querySelector('.category.' + cat + ' .course-list');
                         courseClone.querySelector('h4').textContent = eachCourse.name;
                         courseClone.querySelector('.short-description').textContent = eachCourse.shortdescription;
-                        courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
                         courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price;
+                        // check if has discount
                         eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + eachCourse.discount : courseClone.querySelector('.discount-price').textContent = "";
-                        // if has discount price, then original price use line-through
+                        // if has discount price, then original price use line-through and smaller font
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
+                        // check if has alcohol, only display if yes
                         eachCourse.alcohol !==0 ? courseClone.querySelector('.alcohol-status').textContent = "* Alcohol: " + eachCourse.alcohol : courseClone.querySelector('.alcohol-status').textContent = "";
+                        // check if vegetar
                         eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "* Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
+                        // check if sold out
                         eachCourse.soldout == true ? courseClone.querySelector('img').style.opacity = ".5" : courseClone.querySelector('img').style.opacity = "1";
+                        // cource img src
+                        courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
+                        // generate background img for the category
+                        backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 40*backgroundImgNr +"px 0px no-repeat, ";
+                        backgroundImgNr ++;
                         courseList.appendChild(courseClone);
                     }
                 })
+                // use combi of all imgs from the catefory as the background img of h3
+                document.querySelector('.category.' + cat +' h3').style.background = backgroundImg.slice(0, -2); // cuz of space after, so slice 2 characters
+                // clear value for each catefory
+                backgroundImg = "";
+                backgroundImgNr = 0;
             }
         })
-let h3s = document.querySelectorAll('h3');
-h3s.forEach(h3=>{
-    h3.addEventListener('click', expandCate);
-    function expandCate(){
-        h3.parentElement.classList.toggle("expand");
-    }
-})
-/*
-h3s.forEach(clickH3);
-function clickH3(h){
-    h.addEventListener('click', con);
-    function con(){
-        console.log(h)
-    }
-}*/
-
+    // click on category, expand that category
+    let h3s = document.querySelectorAll('h3');
+    h3s.forEach(h3=>{
+        h3.addEventListener('click', expandCate);
+        function expandCate(){
+            h3.parentElement.classList.toggle("expand");
+            h3.classList.toggle('cursor');
+        };
+        h3.style.backgroundImage = "url(imgs/small/baltiskbondesuppe-sm.jpg)";
+    })
 }
 
 /****************** end of dynamic *******************/
