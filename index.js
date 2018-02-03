@@ -8,7 +8,7 @@ let discount = document.querySelectorAll('.discount-price');
 let soldOut = document.querySelectorAll('.sold-out-status');
 let vegetar = document.querySelectorAll('.veg-status');
 let alcohol = document.querySelectorAll('.alcohol-status');
-let allergens = document.querySelectorAll('.allergens');
+//let allergens = document.querySelectorAll('.allergens');
 
 ///////////////// show long description when click on read-more ///////////////
 let readMore = document.querySelectorAll('.read-more');
@@ -41,7 +41,7 @@ let vegetarButton = document.querySelector('button.vegetar');
 vegetarButton.addEventListener('click', filterVegetar);
 function filterVegetar(){
     // remove other filters
-    allergentButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
     alcoholButton.classList.remove('on');
     soldOutButton.classList.remove('on');
     discountButton.classList.remove('on');
@@ -59,10 +59,11 @@ function filterVegetar(){
         }
     }
 }
+/*
 //allergens
 let onlyShowNoAllergens = false;
 let allergentButton = document.querySelector('button.allergen');
-allergentButton.addEventListener('click', filterAllergens);
+//allergentButton.addEventListener('click', filterAllergens);
 function filterAllergens(){
     // remove other filters
     vegetarButton.classList.remove('on');
@@ -83,6 +84,7 @@ function filterAllergens(){
         }
     }
 }
+*/
 //alcohol
 let onlyShowNoalcohol = false;
 let alcoholButton = document.querySelector('button.alcohol');
@@ -90,7 +92,7 @@ alcoholButton.addEventListener('click', filterAlcohol);
 function filterAlcohol(){
     // remove other filters
     vegetarButton.classList.remove('on');
-    allergentButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
     soldOutButton.classList.remove('on');
     discountButton.classList.remove('on');
     // when filter on, border turns red
@@ -115,7 +117,7 @@ function filterSoldOut(){
     // remove other filters
     vegetarButton.classList.remove('on');
     alcoholButton.classList.remove('on');
-    allergentButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
     discountButton.classList.remove('on');
     // when filter on, border turns red
     soldOutButton.classList.toggle('on');
@@ -138,7 +140,7 @@ function filterDiscount(){
     // remove other filters
     vegetarButton.classList.remove('on');
     alcoholButton.classList.remove('on');
-    allergentButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
     soldOutButton.classList.remove('on');
     // when filter on, border turns red
     discountButton.classList.toggle('on');
@@ -199,7 +201,7 @@ function showCate(c){
             const categoryTemplate = document.querySelector('.category-template').content;
             const categoryClone = categoryTemplate.cloneNode(true);
             let cateSec = categoryClone.querySelector('.category').classList.add(cat);
-            categoryClone.querySelector('h3 p').textContent = cat.toUpperCase();
+            categoryClone.querySelector('h3 p').textContent = cat.toUpperCase() + ".";
             const categoryList = document.querySelector('#category-list');
             categoryList.appendChild(categoryClone);
             /* show only courses with in category*/
@@ -213,9 +215,9 @@ function showCate(c){
                         let courseList = document.querySelector('.category.' + cat + ' .course-list');
                         courseClone.querySelector('h4').textContent = eachCourse.name;
                         courseClone.querySelector('.short-description').textContent = eachCourse.shortdescription;
-                        courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price;
+                        courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price + "kr.";
                         // check if has discount
-                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + eachCourse.discount : courseClone.querySelector('.discount-price').textContent = "";
+                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + eachCourse.discount  + "kr.": courseClone.querySelector('.discount-price').textContent = "";
                         // if has discount price, then original price use line-through and smaller font
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
                         // check if has alcohol, only display if yes

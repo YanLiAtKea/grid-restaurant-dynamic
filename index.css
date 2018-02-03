@@ -1,15 +1,41 @@
 /*
 add click area around close X
-
 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Megrim', cursive;
+    font-weight: bold;
+}
+body {
+    min-width: 340px;
+    display: grid;
+    grid-row-gap: 2em;
+    padding: 1em 3%;
+    background-color: #fefcfa;
+}
+nav {
+    position: fixed;
+    left: 5%;
+    z-index: 7;
+}
+button {
+    margin: 1em .1em;
+    cursor: pointer;
+    height: 3em;
+    border: 1px solid #777;
+    border-radius: 1.5em;
+    background-color: #fefcfa;
+    padding: 0 1em;
+    outline: none;
+    font-weight: bold;
+}
+button.on {
+    border: 2px solid rgba(255,0,0,.7);
 }
 h1 {
-    font-size: 2.3em;
+    font-size: 2.9em;
     margin-top: 2em;
     text-align: right;
 }
@@ -18,7 +44,6 @@ h2 {
 }
 h3 {
     position: relative;
-    text-align: center;
     padding-top: 1em;
     grid-column: 1/-1;
     font-size: 1.7em;
@@ -37,33 +62,6 @@ h3 p {
 }
 h4 {
     font-size: 1.3em;
-    width: max-content;
-    border-top: 1px solid #333;
-    padding-top: .5em;
-}
-body {
-    min-width: 340px;
-    display: grid;
-    grid-row-gap: 2em;
-    padding: 1em 3%;
-}
-nav {
-    position: fixed;
-    left: 2vw;
-    z-index: 7;
-}
-button {
-    margin: .2em .1em;
-    cursor: pointer;
-    height: 3em;
-    border: 2px solid #aaa;
-    border-radius: 1.5em;
-    background-color: rgba(255,255,255,.3);
-    padding: 0 1em;
-    outline: none;
-}
-button.on {
-    border: 2px solid rgba(255,0,0,.7);
 }
 #category-list {
     margin: 2em 0;
@@ -84,10 +82,12 @@ button.on {
 }
 .course-list {
     display: grid;
-    grid-gap: 2em;
 }
 .course {
+    margin: 2em;
+    border: 2px solid #333;
     display: grid;
+    padding: 1em;
     grid-gap: 1em;
     grid-template-columns: 1fr;
     align-items: flex-end;
@@ -134,7 +134,7 @@ p.close-read-more {
 }
 @media screen and (min-width: 560px) {
     body {
-        padding: 5%;
+        padding: 5% 5% 0 5%;
     }
     h1 {
         margin-top: 1em;
@@ -156,7 +156,20 @@ p.close-read-more {
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
+    nav {
+        left: auto;
+        right: 5%;
+    }
+    button {
+        margin-top: 13em;
+        text-align: right;
+    }
+    h1 {
+        font-size: 3.5em;
+        margin-top: 0;
+        height: 2em;
+    }
     #category-list {
         grid-template-columns: 1fr 1fr;
         grid-gap: 4em;
