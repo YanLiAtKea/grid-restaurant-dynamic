@@ -158,14 +158,6 @@ function filterDiscount(){
 }
 // end of filters
 
-// sold-outs when shown ////// need to change style
-soldOuts.forEach(dimSoldOut);
-function dimSoldOut(s){
-    if(s.textContent){
-        s.parentElement.parentElement.style.opacity = ".5";
-    }
-}
-
 // if long desc is empty, hide "read more"
 let longDescP = document.querySelectorAll('.long-description p:nth-of-type(2)');
 longDescP.forEach(checkLongDescP);
@@ -225,11 +217,11 @@ function showCate(c){
                         // check if vegetar
                         eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "* Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
                         // check if sold out
-                        eachCourse.soldout == true ? courseClone.querySelector('img').style.opacity = ".5" : courseClone.querySelector('img').style.opacity = "1";
+                        eachCourse.soldout == true ? courseClone.querySelector('p.sold-out').style.display = "inherit" : courseClone.querySelector('p.sold-out').style.display = "none";
                         // cource img src
                         courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
                         // generate background img for the category
-                        backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 40*backgroundImgNr +"px 0px no-repeat, ";
+                        backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 41*backgroundImgNr +"px 0px no-repeat, ";
                         backgroundImgNr ++;
                         courseList.appendChild(courseClone);
                     }
@@ -249,7 +241,6 @@ function showCate(c){
             h3.parentElement.classList.toggle("expand");
             h3.classList.toggle('cursor');
         };
-        h3.style.backgroundImage = "url(imgs/small/baltiskbondesuppe-sm.jpg)";
     })
 }
 
