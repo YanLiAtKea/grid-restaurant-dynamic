@@ -1,41 +1,13 @@
-/* display extra info accordingly  */
-
-
+/************ click on category, expand that category ***********/
 let soldOuts = document.querySelectorAll('.sold-out-status');
 
 ////////////////check extra info /////////////////
 let discount = document.querySelectorAll('.discount-price');
-//let soldOut = document.querySelectorAll('.sold-out-status');
+let soldOut = document.querySelectorAll('.sold-out-status');
 let vegetar = document.querySelectorAll('.veg-status');
 let alcohol = document.querySelectorAll('.alcohol-status');
 let allergens = document.querySelectorAll('.allergens');
 
-// if extra info exists in database, then display
-function checkContent(a){
-    if(a.textContent){
-        a.style.display = "inherit";
-        a. textContent += " *";
-    }
-}
-discount.forEach(checkContent);
-//soldOut.forEach(checkContent);
-vegetar.forEach(checkContent);
-alcohol.forEach(checkContent);
-allergens.forEach(checkContent);
-
-// if has discount price, then original price use line-through
-discount.forEach(checkDiscount);
-function checkDiscount(d){
-    if(/\d/.test(d.textContent)){
-        let newPrice = d.textContent.slice(0, -1); // remove the * set by previous fn
-        let originalPrice = d.previousElementSibling;
-        originalPrice.style.textDecoration = "line-through";
-        originalPrice.style.fontSize = ".7em";
-        d.textContent = "Now: " + newPrice;
-    } else {
-
-    }
-}
 
 ///////////////// show long description when click on read-more ///////////////
 let readMore = document.querySelectorAll('.read-more');
@@ -157,6 +129,7 @@ function filterSoldOut(){
         }
     }
 }
+
 // discount
 let onlyShowDiscount = false;
 let discountButton = document.querySelector('button.discount');
@@ -225,3 +198,60 @@ function showStars(n){
         n.innerHTML = "&star; &star; &star; &star; &star;";
     }
 }
+
+/*****************dynamic******************/
+// generate categories, display courses within each category
+const categoryLink = "http://kea-alt-del.dk/t5/api/categories";
+fetch(categoryLink).then(categories=>categories.json()).then(cate=>showCate(cate));
+function showCate(c){
+    c.forEach(
+        cat=>{
+            const categoryTemplate = document.querySelector('.category-template').content;
+            const categoryClone = categoryTemplate.cloneNode(true);
+            let cateSec = categoryClone.querySelector('.category').classList.add(cat);
+            categoryClone.querySelector('h3').textContent = cat.toUpperCase();
+            const categoryList = document.querySelector('#category-list');
+            categoryList.appendChild(categoryClone);
+            /* show only courses with in category*/
+            const courseLink = "http://kea-alt-del.dk/t5/api/productlist";
+            fetch(courseLink).then(course=>course.json()).then(c=>showCourse(c));
+            function showCourse(course){
+                course.forEach(eachCourse=>{
+                    if(eachCourse.category === cat){
+                        const courseTemplate = document.querySelector('.course-template').content;
+                        const courseClone = courseTemplate.cloneNode(true);
+                        const courseList = document.querySelector('.category.' + cat + ' .course-list');
+                        courseClone.querySelector('h4').textContent = eachCourse.name;
+                        courseClone.querySelector('.short-description').textContent = eachCourse.shortdescription;
+                        courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
+                        courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price;
+                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + eachCourse.discount : courseClone.querySelector('.discount-price').textContent = "";
+                        // if has discount price, then original price use line-through
+                        courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
+                        eachCourse.alcohol !==0 ? courseClone.querySelector('.alcohol-status').textContent = "* Alcohol: " + eachCourse.alcohol : courseClone.querySelector('.alcohol-status').textContent = "";
+                        eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "* Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
+                        eachCourse.soldout == true ? courseClone.querySelector('img').style.opacity = ".5" : courseClone.querySelector('img').style.opacity = "1";
+                        courseList.appendChild(courseClone);
+                    }
+                })
+            }
+        })
+let h3s = document.querySelectorAll('h3');
+h3s.forEach(h3=>{
+    h3.addEventListener('click', expandCate);
+    function expandCate(){
+        h3.parentElement.classList.toggle("expand");
+    }
+})
+/*
+h3s.forEach(clickH3);
+function clickH3(h){
+    h.addEventListener('click', con);
+    function con(){
+        console.log(h)
+    }
+}*/
+
+}
+
+/****************** end of dynamic *******************/
