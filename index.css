@@ -221,7 +221,7 @@ footer {
 }
 @media screen and (min-width: 960px) {
     hr {
-        top: -.3em;
+        top: 2em;
     }
     nav {
         width: 91%;
@@ -277,14 +277,14 @@ footer {
         grid-row: 2/-1;
     }
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1441px) {
     body {
         width: 1440px;
         margin: 0 auto;
     }
     nav {
         width: 1180px;
-        left: calc(50vw - 690px);
+        left: calc(50vw - 540px - 4.5%);
         top: 2em;
     }
 }
