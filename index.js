@@ -1,11 +1,6 @@
 let backgroundImg = "";
 let backgroundImgNr = 0;
 
-//let discount = document.querySelectorAll('.discount-price');
-//let vegetar = document.querySelectorAll('.veg-status');
-//let alcohol = document.querySelectorAll('.alcohol-status');
-//let allergens = document.querySelectorAll('.allergens');
-
 ///////////////// show long description when click on read-more ///////////////
 let readMore = document.querySelectorAll('.read-more');
 readMore.forEach(clickReadMore);
@@ -30,8 +25,20 @@ function clickCloseReadMore(r){
 }
 
 /////////// filters
+// filter effect
+const buttons = document.querySelectorAll('button');
+const hr = document.querySelector('hr');
+buttons.forEach(b=>{
+    b.addEventListener('click', filterE);
+    function filterE(){
+        hr.classList.add('filter');
+        hr.addEventListener('animationend', resetHr);
+        function resetHr(){
+            hr.classList.remove("filter");
+        }
+    }
+})
 // vegetar
-let onlyShowVegetar = false;
 let vegetarButton = document.querySelector('button.vegetar');
 vegetarButton.addEventListener('click', filterVegetar);
 function filterVegetar(){
@@ -56,7 +63,6 @@ function filterVegetar(){
 }
 /*
 //allergens
-let onlyShowNoAllergens = false;
 let allergentButton = document.querySelector('button.allergen');
 //allergentButton.addEventListener('click', filterAllergens);
 function filterAllergens(){
@@ -81,7 +87,6 @@ function filterAllergens(){
 }
 */
 //alcohol
-let onlyShowNoalcohol = false;
 let alcoholButton = document.querySelector('button.alcohol');
 alcoholButton.addEventListener('click', filterAlcohol);
 function filterAlcohol(){
@@ -105,7 +110,6 @@ function filterAlcohol(){
     }
 }
 //sold-out
-let onlyShowNotSoldOut = false;
 let soldOutButton = document.querySelector('button.sold-out');
 soldOutButton.addEventListener('click', filterSoldOut);
 function filterSoldOut(){
@@ -129,7 +133,6 @@ function filterSoldOut(){
     }
 }
 // discount
-let onlyShowDiscount = false;
 let discountButton = document.querySelector('button.discount');
 discountButton.addEventListener('click', filterDiscount);
 function filterDiscount(){
@@ -239,5 +242,4 @@ function showCate(c){
         };
     })
 }
-
 /****************** end of dynamic *******************/
