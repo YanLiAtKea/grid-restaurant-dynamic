@@ -1,13 +1,9 @@
 let backgroundImg = "";
 let backgroundImgNr = 0;
 
-let soldOuts = document.querySelectorAll('.sold-out-status');
-
-////////////////check extra info /////////////////
-let discount = document.querySelectorAll('.discount-price');
-let soldOut = document.querySelectorAll('.sold-out-status');
-let vegetar = document.querySelectorAll('.veg-status');
-let alcohol = document.querySelectorAll('.alcohol-status');
+//let discount = document.querySelectorAll('.discount-price');
+//let vegetar = document.querySelectorAll('.veg-status');
+//let alcohol = document.querySelectorAll('.alcohol-status');
 //let allergens = document.querySelectorAll('.allergens');
 
 ///////////////// show long description when click on read-more ///////////////
@@ -21,7 +17,6 @@ function clickReadMore(r){
         console.log(longDescription);
     }
 }
-
 ///////////////// hide long description when click on X ///////////////
 let closeReadMore = document.querySelectorAll('.close-read-more');
 closeReadMore.forEach(clickCloseReadMore);
@@ -121,6 +116,7 @@ function filterSoldOut(){
     discountButton.classList.remove('on');
     // when filter on, border turns red
     soldOutButton.classList.toggle('on');
+    let soldOuts = document.querySelectorAll('.sold-out-status');
     soldOuts.forEach(toggleSoldOut);
     function toggleSoldOut(v){
         if(!v.textContent && soldOutButton.classList.contains('on')){
@@ -214,10 +210,10 @@ function showCate(c){
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
                         // check if has alcohol, only display if yes
                         eachCourse.alcohol !==0 ? courseClone.querySelector('.alcohol-status').textContent = "* Alcohol: " + eachCourse.alcohol : courseClone.querySelector('.alcohol-status').textContent = "";
-                        // check if vegetar
+                        // check if vegetar, only display if yes
                         eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "* Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
-                        // check if sold out
-                        eachCourse.soldout == true ? courseClone.querySelector('p.sold-out').style.display = "inherit" : courseClone.querySelector('p.sold-out').style.display = "none";
+                        // check if sold out, edit html + display label
+                        eachCourse.soldout == true ? (courseClone.querySelector('.sold-out-status').textContent = "sold-out", courseClone.querySelector('.sold-out-status').style.display = "none", courseClone.querySelector('p.sold-out').style.display = "inherit") : courseClone.querySelector('p.sold-out').style.display = "none";
                         // cource img src
                         courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
                         // generate background img for the category

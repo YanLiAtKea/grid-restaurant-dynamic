@@ -85,14 +85,18 @@ h4 {
     display: grid;
 }
 .course {
-    margin: 2em;
+    margin: 2em 13vw 0 13vw;
     border: 1px solid #777;
     border-bottom: none;
+    border-right: none;
     display: grid;
     padding: 1em;
     grid-gap: 1em;
     grid-template-columns: 1fr;
     align-items: flex-end;
+}
+.course:last-child {
+    margin-bottom: 2em;
 }
 .course h4 {
     grid-row: 1/2;
@@ -196,7 +200,7 @@ footer {
 @media screen and (min-width: 960px) {
     nav {
         left: auto;
-        right: 5%;
+        right: 8%;
     }
     button {
         margin-top: 13em;
@@ -211,10 +215,12 @@ footer {
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 4em;
         grid-row-gap: 2em;
+        align-items: flex-start;
     }
     .course {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
+        margin: 2em 2em 0 2em;
     }
     .course h4, .course-intro, .price, .extra-info {
         grid-column: 1/-1;
