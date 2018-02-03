@@ -232,13 +232,32 @@ function showCate(c){
                 backgroundImgNr = 0;
             }
         })
-    // click on category, expand that category
+    // click on category, expand that category and move close arrow
+    let scrollY;
+    let closeArrows = document.querySelectorAll('p.close');
+    // click on close arrow, close expanded category
+    closeArrows.forEach(cA=>{
+        cA.addEventListener('click', closeExpand);
+        function closeExpand(){
+            cA.parentElement.classList.remove('expand');
+        };
+    })
+    // click on catefory title, expand category and move close arrow
     let h3s = document.querySelectorAll('h3');
     h3s.forEach(h3=>{
         h3.addEventListener('click', expandCate);
         function expandCate(){
-            h3.parentElement.classList.toggle("expand");
-            h3.classList.toggle('cursor');
+            scrollY = 0;
+            h3.parentElement.classList.add("expand");
+            h3.nextElementSibling.style.top = "192px";
+//            h3.classList.toggle('cursor');
+            window.addEventListener('scroll', getOffsetY);
+            function getOffsetY(){
+                scrollY = window.scrollY;
+                if (scrollY < h3.parentElement.clientHeight){
+                    h3.nextElementSibling.style.top = (192 + scrollY) + "px";
+                }
+            }
         };
     })
 }
