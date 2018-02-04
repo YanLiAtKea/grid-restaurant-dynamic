@@ -78,6 +78,10 @@ h3 {
     cursor: s-resize;
     filter: contrast(3) saturate(1.8) sepia(.6);
     border-right: 1px solid #333;
+    z-index: 2;
+}
+h3.cursor {
+    cursor: n-resize;
 }
 h3 p {
     position: absolute;

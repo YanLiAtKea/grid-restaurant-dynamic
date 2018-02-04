@@ -258,7 +258,7 @@ function showCate(c){
     h3s.forEach(h3=>{
         h3.addEventListener('click', expandCate);
         function expandCate(){
-            h3.parentElement.classList.add("expand");
+            h3.parentElement.classList.toggle("expand");
             categoryHeight = h3.parentElement.clientHeight;
             windowScrollY = window.scrollY; // get window scroll offset when h3 clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
