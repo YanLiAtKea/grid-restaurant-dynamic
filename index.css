@@ -20,7 +20,7 @@ body {
     display: grid;
     grid-row-gap: 2em;
     padding: 1em 3%;
-    background-color: #fefcfa;
+    background-color: #fefafa;
     position: relative;
 }
 nav {
@@ -36,18 +36,18 @@ button {
     height: 3em;
     border: 1px solid #777;
     border-radius: 1.5em;
-    background-color: #fefcfa;
+    background-color: #fefafa;
     padding: 0 1em;
     outline: none;
     font-weight: bold;
 }
 button.on {
-    border: 2px solid rgba(255,0,0,.7);
+    border: 2px solid rgba(255,110,110,.7);
 }
 hr {
     border: 3px solid white;
     position: relative;
-    top: -1em;
+    top: 0em;
 }
 hr.filter {
     animation: filter 1s linear forwards;
@@ -232,8 +232,11 @@ footer {
     }
 }
 @media screen and (min-width: 960px) {
+    body {
+        grid-row-gap: 1em;
+    }
     hr {
-        top: 2em;
+        top: 1em;
     }
     nav {
         width: 91%;
@@ -241,14 +244,10 @@ footer {
         text-align: right;
         left: auto;
     }
-    button {
-        margin-top: 12em;
-        text-align: right;
-    }
     h1 {
         font-size: 3.5em;
-        margin-top: 0;
-        height: 1.5em;
+        margin-top: .7em;
+        height: 1em;
     }
     #category-list {
         grid-template-columns: 1fr 1fr;

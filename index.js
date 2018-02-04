@@ -250,6 +250,7 @@ function showCate(c){
         cA.addEventListener('click', closeExpand);
         function closeExpand(){
             cA.parentElement.classList.remove('expand');
+            cA.style.top = "4em";
         };
     })
     // click on catefory title, expand category and move close arrow down while scrolling
@@ -258,9 +259,7 @@ function showCate(c){
         h3.addEventListener('click', expandCate);
         function expandCate(){
             h3.parentElement.classList.add("expand");
-            //h3.nextElementSibling.classList.add(h3.textContent.toLowerCase().slice(0,-1));
             categoryHeight = h3.parentElement.clientHeight;
-            document.querySelector('.category.' + h3.textContent.toLowerCase().slice(0,-1)).style.height = categoryHeight;
             windowScrollY = window.scrollY; // get window scroll offset when h3 clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
             window.addEventListener('scroll', getOffsetY);
@@ -268,11 +267,13 @@ function showCate(c){
                 elemScrollY = window.scrollY - windowScrollY; // window scroll difference is the element scroll distance
                 if (elemScrollY < (categoryHeight - 212)){
                     h3.nextElementSibling.style.top = (192 + elemScrollY) + "px";
+                    console.log(h3.nextElementSibling.style.top);
                 } else {
-                    h3.nextElementSibling.style.top = categoryHeight - 20 + "px";
+                    h3.nextElementSibling.style.top = (categoryHeight - 20) + "px";
+                    console.log(h3.nextElementSibling.style.top);
                 }
             }
         };
-    })
+    });
 }
 /****************** end of dynamic *******************/
