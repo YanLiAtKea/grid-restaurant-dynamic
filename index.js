@@ -244,15 +244,6 @@ function showCate(c){
     let elemScrollY; // elem vertical offset while scrolling
     let windowScrollY;
     let categoryHeight;
-    // click on close arrow, close expanded category
-    let closeArrows = document.querySelectorAll('p.close');
-    closeArrows.forEach(cA=>{
-        cA.addEventListener('click', closeExpand);
-        function closeExpand(){
-            cA.parentElement.classList.remove('expand');
-            cA.style.top = "4em";
-        };
-    })
     // click on catefory title, expand category and move close arrow down while scrolling
     let h3s = document.querySelectorAll('h3');
     h3s.forEach(h3=>{
@@ -267,13 +258,24 @@ function showCate(c){
                 elemScrollY = window.scrollY - windowScrollY; // window scroll difference is the element scroll distance
                 if (elemScrollY < (categoryHeight - 212)){
                     h3.nextElementSibling.style.top = (192 + elemScrollY) + "px";
-                    console.log(h3.nextElementSibling.style.top);
+//                    console.log(h3.nextElementSibling.style.top);
                 } else {
                     h3.nextElementSibling.style.top = (categoryHeight - 20) + "px";
-                    console.log(h3.nextElementSibling.style.top);
+//                    console.log(h3.nextElementSibling.style.top);
                 }
             }
         };
     });
+    // click on close arrow, close expanded category
+    let closeArrows = document.querySelectorAll('p.close');
+    closeArrows.forEach(cA=>{
+        cA.addEventListener('click', closeExpand);
+        function closeExpand(){
+//            cA.parentElement.classList.remove('expand');
+//            cA.style.top = "4em";
+            h3s.forEach(h3=>{h3.parentElement.classList.remove('expand')});
+            elemScrollY = 0;
+        };
+    })
 }
 /****************** end of dynamic *******************/

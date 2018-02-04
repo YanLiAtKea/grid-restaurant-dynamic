@@ -18,9 +18,8 @@ rem:
 body {
     min-width: 340px;
     display: grid;
-    grid-row-gap: 2em;
     padding: 1em 3%;
-    background-color: #fefafa;
+    background-color: #fefefa;
     position: relative;
 }
 nav {
@@ -36,7 +35,7 @@ button {
     height: 3em;
     border: 1px solid #777;
     border-radius: 1.5em;
-    background-color: #fefafa;
+    background-color: #fefefa;
     padding: 0 1em;
     outline: none;
     font-weight: bold;
@@ -62,8 +61,12 @@ hr.filter {
 }
 h1 {
     font-size: 2.9em;
-    margin-top: 1.5em;
+    margin-top: 30px;
     text-align: right;
+}
+span {
+    position: relative;
+    top: 107px;
 }
 h2 {
     font-size: 1.9em;
@@ -196,6 +199,9 @@ footer {
     body {
         padding: 5% 5% 0 5%;
     }
+    span {
+        top: 123px;
+    }
     h1 {
         margin-top: 1em;
     }
@@ -233,8 +239,8 @@ footer {
     }
 }
 @media screen and (min-width: 960px) {
-    body {
-        grid-row-gap: 1em;
+    span {
+        top: 110px;
     }
     hr {
         top: 1em;
@@ -290,7 +296,7 @@ footer {
         grid-row: 2/-1;
     }
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1441px) {
     .course {
         margin: 2em 6em 0 4em;
     }
