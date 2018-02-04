@@ -1,3 +1,12 @@
+/*
+to do:
+update category  height when click on filter button, so that close button can be replaced accordingly
+fix:
+
+rem:
+
+*/
+
 let backgroundImg = "";
 let backgroundImgNr = 0;
 
@@ -232,30 +241,35 @@ function showCate(c){
                 backgroundImgNr = 0;
             }
         })
-    // click on category, expand that category and move close arrow
-    let scrollY;
-    let closeArrows = document.querySelectorAll('p.close');
+    let elemScrollY; // elem vertical offset while scrolling
+    let windowScrollY;
+    let categoryHeight;
     // click on close arrow, close expanded category
+    let closeArrows = document.querySelectorAll('p.close');
     closeArrows.forEach(cA=>{
         cA.addEventListener('click', closeExpand);
         function closeExpand(){
             cA.parentElement.classList.remove('expand');
         };
     })
-    // click on catefory title, expand category and move close arrow
+    // click on catefory title, expand category and move close arrow down while scrolling
     let h3s = document.querySelectorAll('h3');
     h3s.forEach(h3=>{
         h3.addEventListener('click', expandCate);
         function expandCate(){
-            scrollY = 0;
             h3.parentElement.classList.add("expand");
-            h3.nextElementSibling.style.top = "192px";
-//            h3.classList.toggle('cursor');
+            //h3.nextElementSibling.classList.add(h3.textContent.toLowerCase().slice(0,-1));
+            categoryHeight = h3.parentElement.clientHeight;
+            document.querySelector('.category.' + h3.textContent.toLowerCase().slice(0,-1)).style.height = categoryHeight;
+            windowScrollY = window.scrollY; // get window scroll offset when h3 clicked, in order to be able to calculate difference later
+            elemScrollY = 0; // elem scroll is 0 by default when category expands
             window.addEventListener('scroll', getOffsetY);
             function getOffsetY(){
-                scrollY = window.scrollY;
-                if (scrollY < h3.parentElement.clientHeight){
-                    h3.nextElementSibling.style.top = (192 + scrollY) + "px";
+                elemScrollY = window.scrollY - windowScrollY; // window scroll difference is the element scroll distance
+                if (elemScrollY < (categoryHeight - 212)){
+                    h3.nextElementSibling.style.top = (192 + elemScrollY) + "px";
+                } else {
+                    h3.nextElementSibling.style.top = categoryHeight - 20 + "px";
                 }
             }
         };

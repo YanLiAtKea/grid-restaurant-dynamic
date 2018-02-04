@@ -1,5 +1,12 @@
 /*
-add click area around close X
+to do:
+click area around close X
+move filter buttons on the side when min-width 960
+
+fix:
+
+rem:
+
 */
 * {
     margin: 0;
@@ -72,9 +79,6 @@ h3 {
     filter: contrast(3) saturate(1.8) sepia(.6);
     border-right: 1px solid #333;
 }
-h3.cursor {
-    cursor: n-resize;
-}
 h3 p {
     position: absolute;
     top: 4em;
@@ -112,7 +116,7 @@ h4 {
     display: grid;
 }
 .course {
-    margin: 2em 13vw 0 13vw;
+    margin: 2em 17vw 0 11vw;
     border: 1px solid #777;
     border-bottom: none;
     border-right: none;
@@ -255,7 +259,7 @@ footer {
     .course {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        margin: 2em 2em 0 2em;
+        margin: 2em 3em 0 2em;
     }
     .course h4, .course-intro, .price, .extra-info {
         grid-column: 1/-1;
@@ -273,7 +277,7 @@ footer {
         grid-template-columns: 2fr 5fr;
         grid-template-rows: 2em auto 2em 2em;
         border-bottom: none;
-        margin: 2em 3em 0 3em;
+        margin: 2em 4em 0 2em;
     }
     .course h4 {
         grid-column: 1/-1;
@@ -288,7 +292,7 @@ footer {
 }
 @media screen and (min-width: 1440px) {
     .course {
-        margin: 2em 5em 0 5em;
+        margin: 2em 6em 0 4em;
     }
 }
 @media screen and (min-width: 1921px) {
