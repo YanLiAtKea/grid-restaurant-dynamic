@@ -34,9 +34,9 @@ function showCate(c){
                         let courseList = document.querySelector('.category.' + cat + ' .course-list');
                         courseClone.querySelector('h4').textContent = eachCourse.name;
                         courseClone.querySelector('.short-description').textContent = eachCourse.shortdescription;
-                        courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price + "kr.";
+                        courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price + " ,-";
                         // check if has discount
-                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + Math.ceil(eachCourse.price*(100 - eachCourse.discount)/100)  + "kr.": courseClone.querySelector('.discount-price').textContent = "";
+                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + Math.ceil(eachCourse.price*(100 - eachCourse.discount)/100)  + " ,-": courseClone.querySelector('.discount-price').textContent = "";
                         // if has discount price, then original price use line-through and smaller font
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
                         // check if has alcohol, only display if yes
