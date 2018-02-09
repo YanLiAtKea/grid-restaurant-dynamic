@@ -321,7 +321,7 @@ div.about p.about{
         grid-row: 3/4;
     }
     footer {
-        top: -4em;
+        top: -5em;
     }
 }
 @media screen and (min-width: 1200px) {
