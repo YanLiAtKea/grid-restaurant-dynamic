@@ -125,6 +125,7 @@ h4 {
 }
 .course-list {
     display: grid;
+    border-bottom: 1px dashed #777;
 }
 .course {
     margin: 2em 17vw 0 11vw;
@@ -292,18 +293,25 @@ div.about p.about{
     }
     h1 {
         font-size: 3.5em;
+        margin-top: 1.3em;
         height: 1em;
     }
-/*    #category-list {
+    #category-list {
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 4em;
         grid-row-gap: 2em;
         align-items: flex-start;
-    }*/
+    }
+    .course-list {
+        width: 80vw;
+        margin-left: 2vw;
+        margin-bottom: 3em;
+        grid-template-columns: 1fr 1fr;
+    }
     .course {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        margin: 2em 3em 0 2em;
+        margin: 2em 3em 0 0;
     }
     .course h4, .course-intro, .price, .extra-info {
         grid-column: 1/-1;
@@ -317,21 +325,8 @@ div.about p.about{
     }
 }
 @media screen and (min-width: 1200px) {
-    .course {
-        grid-template-columns: 2fr 5fr;
-        grid-template-rows: 2em auto 2em 2em;
-        border-bottom: none;
-        margin: 2em 4em 0 2em;
-    }
-    .course h4 {
-        grid-column: 1/-1;
-    }
-    .course-intro, .price, .extra-info {
-        grid-column: 1/2;
-    }
-    .course img, .long-description {
-        grid-column: 2/-1;
-        grid-row: 2/-1;
+    .course-list {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 @media screen and (min-width: 1441px) {

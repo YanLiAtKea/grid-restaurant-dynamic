@@ -15,7 +15,7 @@ aboutSite.addEventListener('click', ()=>aboutSite.classList.remove('on'));
 let backgroundImg = "";
 let backgroundImgNr = 0;
 
-/////////// filters
+//************** filters
 // filter effect
 const buttons = document.querySelectorAll('button');
 const hr = document.querySelector('hr');
@@ -146,16 +146,7 @@ function filterDiscount(){
         }
     }
 }
-// end of filters
-
-// if long desc is empty, hide "read more"
-let longDescP = document.querySelectorAll('.long-description p:nth-of-type(2)');
-longDescP.forEach(checkLongDescP);
-function checkLongDescP(l){
-    if(!l.textContent){
-        l.parentElement.previousElementSibling.previousElementSibling.lastElementChild.style.display = "none";
-    }
-}
+// *************** end of filters
 
 //show nr of stars based on nr from database
 let starNr = document.querySelectorAll('.stars');
@@ -202,7 +193,7 @@ function showCate(c){
                         courseClone.querySelector('.short-description').textContent = eachCourse.shortdescription;
                         courseClone.querySelector('p.price').textContent = "Price: " + eachCourse.price + "kr.";
                         // check if has discount
-                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + eachCourse.discount  + "kr.": courseClone.querySelector('.discount-price').textContent = "";
+                        eachCourse.discount !==0 ? courseClone.querySelector('.discount-price').textContent = "Now: " + Math.ceil(eachCourse.price*(100 - eachCourse.discount)/100)  + "kr.": courseClone.querySelector('.discount-price').textContent = "";
                         // if has discount price, then original price use line-through and smaller font
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
                         // check if has alcohol, only display if yes
@@ -259,13 +250,19 @@ function showCate(c){
         if(expandAllButton.textContent.indexOf('expand')>-1){
             as.forEach(a=>{a.parentElement.classList.add('expand')})
             expandAllButton.innerHTML = "^ collapse all";
+            if(window.innerWidth > 960){
+                document.querySelector('#category-list').style.gridTemplateColumns = "1fr"; // if screen width > 960px
+            }
         } else {
             expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
             closeAllCategory();
         }
     }
     function closeAllCategory(){
-        as.forEach(a=>{a.parentElement.classList.remove('expand')})
+        as.forEach(a=>{a.parentElement.classList.remove('expand')});
+        if(window.innerWidth > 960){
+            document.querySelector('#category-list').style.gridTemplateColumns = "1fr 1fr"; // only if screen width > 960px
+        }
     }
     as.forEach(a=>{
         a.addEventListener('click', expandCate);
@@ -273,6 +270,7 @@ function showCate(c){
             expandAllButton.innerHTML = "^ collapse all";
             closeAllCategory(); // close all first
             a.parentElement.classList.add("expand"); // then only expand the one that's clicked
+            a.parentElement.parentElement.style.gridTemplateColumns = "1fr"; // only need to change this when screen is wider than 960px, but no need to add if, cuz with other screen widths, default is 1fr
             categoryHeight = a.parentElement.clientHeight;
             windowScrollY = window.scrollY; // get window scroll offset when a clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
@@ -293,8 +291,12 @@ function showCate(c){
     let closeArrows = document.querySelectorAll('p.close');
     closeArrows.forEach(cA=>{
         cA.addEventListener('click', closeExpand);
+        console.log(cA.previousElementSibling.parentElement.parentElement);
         function closeExpand(){
             expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
+            if(window.innerWidth > 960){
+                cA.previousElementSibling.parentElement.parentElement.style.gridTemplateColumns = "1fr 1fr"; // if screen width > 960px
+            }
             as.forEach(a=>{a.parentElement.classList.remove('expand')});
             elemScrollY = 0;
         };
