@@ -200,7 +200,8 @@ function showCate(c){
         cat=>{
             const categoryTemplate = document.querySelector('.category-template').content;
             const categoryClone = categoryTemplate.cloneNode(true);
-            let cateSec = categoryClone.querySelector('.category').classList.add(cat);
+            categoryClone.querySelector('.category').classList.add(cat);
+            categoryClone.querySelector('.category').setAttribute('id', cat);
             categoryClone.querySelector('h3 p').textContent = cat.toUpperCase() + ".";
             const categoryList = document.querySelector('#category-list');
             categoryList.appendChild(categoryClone);
@@ -246,10 +247,28 @@ function showCate(c){
     let categoryHeight;
     // click on catefory title, expand category and move close arrow down while scrolling
     let h3s = document.querySelectorAll('h3');
+    // expand all categories by clicking button
+    let expandAllButton = document.querySelector('sub');
+    expandAllButton.addEventListener('click', expandAllCategory);
+    function expandAllCategory(){
+        if(expandAllButton.textContent.indexOf('expand')>-1){
+            h3s.forEach(h3=>{h3.parentElement.classList.add('expand')})
+            expandAllButton.innerHTML = "&#9776; collapse all";
+        } else {
+            expandAllButton.innerHTML = "&#9776; expand all";
+            closeAllCategory();
+        }
+    }
+    function closeAllCategory(){
+        h3s.forEach(h3=>{h3.parentElement.classList.remove('expand')})
+    }
     h3s.forEach(h3=>{
-        h3.addEventListener('click', expandCate);
+        if(expandAllButton.textContent.indexOf('collapse') < 0){
+            h3.addEventListener('click', expandCate);
+        }
         function expandCate(){
-            h3.parentElement.classList.toggle("expand");
+            closeAllCategory(); // close all first
+            h3.parentElement.classList.add("expand"); // then only expand the one that's clicked
             categoryHeight = h3.parentElement.clientHeight;
             windowScrollY = window.scrollY; // get window scroll offset when h3 clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
