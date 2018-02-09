@@ -202,7 +202,8 @@ function showCate(c){
             const categoryClone = categoryTemplate.cloneNode(true);
             categoryClone.querySelector('.category').classList.add(cat);
             categoryClone.querySelector('.category').setAttribute('id', cat);
-            categoryClone.querySelector('h3 p').textContent = cat.toUpperCase() + ".";
+            categoryClone.querySelector('.category a').setAttribute('href', "#"+cat);
+            categoryClone.querySelector('a p').textContent = cat.toUpperCase() + ".";
             const categoryList = document.querySelector('#category-list');
             categoryList.appendChild(categoryClone);
             /* show only courses with in category*/
@@ -235,8 +236,8 @@ function showCate(c){
                         courseList.appendChild(courseClone);
                     }
                 })
-                // use combi of all imgs from the catefory as the background img of h3
-                document.querySelector('.category.' + cat +' h3').style.background = backgroundImg.slice(0, -2); // cuz of space after, so slice 2 characters
+                // use combi of all imgs from the catefory as the background img of a
+                document.querySelector('.category.' + cat +' a').style.background = backgroundImg.slice(0, -2); // cuz of space after, so slice 2 characters
                 // clear value for each catefory
                 backgroundImg = "";
                 backgroundImgNr = 0;
@@ -246,41 +247,40 @@ function showCate(c){
     let windowScrollY;
     let categoryHeight;
     // click on catefory title, expand category and move close arrow down while scrolling
-    let h3s = document.querySelectorAll('h3');
-    // expand all categories by clicking button
+    let as = document.querySelectorAll('a');
+    // expand/collapse all categories by clicking button
     let expandAllButton = document.querySelector('sub');
     expandAllButton.addEventListener('click', expandAllCategory);
     function expandAllCategory(){
         if(expandAllButton.textContent.indexOf('expand')>-1){
-            h3s.forEach(h3=>{h3.parentElement.classList.add('expand')})
-            expandAllButton.innerHTML = "&#9776; collapse all";
+            as.forEach(a=>{a.parentElement.classList.add('expand')})
+            expandAllButton.innerHTML = "&#9776; collapse";
         } else {
             expandAllButton.innerHTML = "&#9776; expand all";
             closeAllCategory();
         }
     }
     function closeAllCategory(){
-        h3s.forEach(h3=>{h3.parentElement.classList.remove('expand')})
+        as.forEach(a=>{a.parentElement.classList.remove('expand')})
     }
-    h3s.forEach(h3=>{
-        if(expandAllButton.textContent.indexOf('collapse') < 0){
-            h3.addEventListener('click', expandCate);
-        }
+    as.forEach(a=>{
+        a.addEventListener('click', expandCate);
         function expandCate(){
+            expandAllButton.innerHTML = "&#9776; collapse";
             closeAllCategory(); // close all first
-            h3.parentElement.classList.add("expand"); // then only expand the one that's clicked
-            categoryHeight = h3.parentElement.clientHeight;
-            windowScrollY = window.scrollY; // get window scroll offset when h3 clicked, in order to be able to calculate difference later
+            a.parentElement.classList.add("expand"); // then only expand the one that's clicked
+            categoryHeight = a.parentElement.clientHeight;
+            windowScrollY = window.scrollY; // get window scroll offset when a clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
             window.addEventListener('scroll', getOffsetY);
             function getOffsetY(){
                 elemScrollY = window.scrollY - windowScrollY; // window scroll difference is the element scroll distance
                 if (elemScrollY < (categoryHeight - 212)){
-                    h3.nextElementSibling.style.top = (192 + elemScrollY) + "px";
-//                    console.log(h3.nextElementSibling.style.top);
+                    a.nextElementSibling.style.top = (192 + elemScrollY) + "px";
+//                    console.log(a.nextElementSibling.style.top);
                 } else {
-                    h3.nextElementSibling.style.top = (categoryHeight - 20) + "px";
-//                    console.log(h3.nextElementSibling.style.top);
+                    a.nextElementSibling.style.top = (categoryHeight - 20) + "px";
+//                    console.log(a.nextElementSibling.style.top);
                 }
             }
         };
@@ -290,9 +290,8 @@ function showCate(c){
     closeArrows.forEach(cA=>{
         cA.addEventListener('click', closeExpand);
         function closeExpand(){
-//            cA.parentElement.classList.remove('expand');
-//            cA.style.top = "4em";
-            h3s.forEach(h3=>{h3.parentElement.classList.remove('expand')});
+            expandAllButton.innerHTML = "&#9776; expand all";
+            as.forEach(a=>{a.parentElement.classList.remove('expand')});
             elemScrollY = 0;
         };
     })

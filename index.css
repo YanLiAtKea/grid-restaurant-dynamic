@@ -22,18 +22,12 @@ body {
     background-color: #fefefa;
     position: relative;
 }
-nav>span:first-child {
+nav>span {
     font-size: 1.5em;
     margin: 0 1.5em 0 0;
     top: 0;
     cursor: pointer;
     display: block;
-}
-span.filter {
-    font-size: .7em;
-    position: relative;
-    top: .1em;
-    right: -1em;
 }
 nav {
     display: block;
@@ -84,7 +78,7 @@ span {
 h2 {
     font-size: 1.9em;
 }
-h3 {
+a {
     position: relative;
     padding-top: 1em;
     grid-column: 1/-1;
@@ -96,7 +90,7 @@ h3 {
     border-right: 1px solid #333;
     z-index: 2;
 }
-h3 p {
+a p {
     position: absolute;
     top: 4em;
     color: #333;
@@ -245,10 +239,10 @@ footer {
     nav {
         left: 9%;
     }
-    h3 {
+    a {
         height: 5em;
     }
-    h3 p {
+    a p {
         top: 5em;
     }
     .category {
@@ -257,6 +251,9 @@ footer {
     }
 }
 @media screen and (min-width: 960px) {
+    nav>span {
+        margin-right: 0;
+    }
     span {
         top: 110px;
     }
