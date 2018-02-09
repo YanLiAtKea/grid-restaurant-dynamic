@@ -233,7 +233,7 @@ div.about p.about{
     font-size: 15px;
 }
 .hide {
-    visibility: hidden;
+    display: none;
 }
 @media screen and (min-width: 560px) {
     body {

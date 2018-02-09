@@ -44,7 +44,11 @@ function showCate(c){
                         // check if vegetar, only display if yes
                         eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "*** Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
                         // check if sold out, edit html + display label
-                        eachCourse.soldout == true ? (courseClone.querySelector('.sold-out-status').textContent = "sold-out", courseClone.querySelector('.sold-out-status').style.display = "none", courseClone.querySelector('p.sold-out').style.display = "inherit") : courseClone.querySelector('p.sold-out').style.display = "none";
+                        if(eachCourse.soldout){
+                            courseClone.querySelector('.sold-out-status').textContent = "sold-out";
+                            courseClone.querySelector('.sold-out-status').style.display = "none";
+                            courseClone.querySelector('p.sold-out').classList.remove('hide');
+                        }
                         // cource img src and alt
                         courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
                         courseClone.querySelector('img').setAttribute('alt', 'couse picture');
