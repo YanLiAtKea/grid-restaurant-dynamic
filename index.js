@@ -40,13 +40,14 @@ function showCate(c){
                         // if has discount price, then original price use line-through and smaller font
                         courseClone.querySelector('.discount-price').textContent !=="" ? (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "line-through", courseClone.querySelector('.discount-price').previousElementSibling.style.fontSize = ".7em" ): (courseClone.querySelector('.discount-price').previousElementSibling.style.textDecoration = "none");
                         // check if has alcohol, only display if yes
-                        eachCourse.alcohol !==0 ? courseClone.querySelector('.alcohol-status').textContent = "* Alcohol: " + eachCourse.alcohol : courseClone.querySelector('.alcohol-status').textContent = "";
+                        eachCourse.alcohol !==0 ? courseClone.querySelector('.alcohol-status').textContent = "*** Alcohol: " + eachCourse.alcohol + "%": courseClone.querySelector('.alcohol-status').textContent = "";
                         // check if vegetar, only display if yes
-                        eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "* Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
+                        eachCourse.vegetarian === true ? courseClone.querySelector('.veg-status').textContent = "*** Vegetar" : courseClone.querySelector('.veg-status').textContent = "";
                         // check if sold out, edit html + display label
                         eachCourse.soldout == true ? (courseClone.querySelector('.sold-out-status').textContent = "sold-out", courseClone.querySelector('.sold-out-status').style.display = "none", courseClone.querySelector('p.sold-out').style.display = "inherit") : courseClone.querySelector('p.sold-out').style.display = "none";
-                        // cource img src
+                        // cource img src and alt
                         courseClone.querySelector('img').src = "http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg";
+                        courseClone.querySelector('img').setAttribute('alt', 'couse picture');
                         // generate background img for the category
                         backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 41*backgroundImgNr +"px 0px no-repeat, ";
                         backgroundImgNr ++;
@@ -78,6 +79,7 @@ function showCate(c){
                         let allEmpty = emptyStar.repeat(5-d.stars);
                         stars.innerHTML = allFilled + allEmpty;
                         }
+
                         courseList.appendChild(courseClone);
                     }
                 })
@@ -99,7 +101,7 @@ function showCate(c){
     function expandAllCategory(){
         if(expandAllButton.textContent.indexOf('expand')>-1){
             as.forEach(a=>{a.parentElement.classList.add('expand')})
-            expandAllButton.innerHTML = "^ collapse all";
+            expandAllButton.innerHTML = "collapse";
             if(window.innerWidth > 960){
                 document.querySelector('#category-list').style.gridTemplateColumns = "1fr"; // if screen width > 960px
             }
@@ -117,21 +119,23 @@ function showCate(c){
     as.forEach(a=>{
         a.addEventListener('click', expandCate);
         function expandCate(){
-            expandAllButton.innerHTML = "^ collapse all";
+            expandAllButton.innerHTML = "collapse";
             closeAllCategory(); // close all first
             a.parentElement.classList.add("expand"); // then only expand the one that's clicked
             a.parentElement.parentElement.style.gridTemplateColumns = "1fr"; // only need to change this when screen is wider than 960px, but no need to add if, cuz with other screen widths, default is 1fr
+            // scroll
             categoryHeight = a.parentElement.clientHeight;
-            windowScrollY = window.scrollY; // get window scroll offset when a clicked, in order to be able to calculate difference later
+            windowScrollY = window.scrollY; // get window scroll offset when each a is clicked, in order to be able to calculate difference later
             elemScrollY = 0; // elem scroll is 0 by default when category expands
             window.addEventListener('scroll', getOffsetY);
             function getOffsetY(){
                 elemScrollY = window.scrollY - windowScrollY; // window scroll difference is the element scroll distance
-                if (elemScrollY < (categoryHeight - 212)){
-                    a.nextElementSibling.style.top = (192 + elemScrollY) + "px";
+                if (elemScrollY < (categoryHeight - 252)){
+
+                    a.nextElementSibling.style.top = (191 + elemScrollY) + "px";
 //                    console.log(a.nextElementSibling.style.top);
                 } else {
-                    a.nextElementSibling.style.top = (categoryHeight - 20) + "px";
+                    a.nextElementSibling.style.top = (categoryHeight - 61) + "px";
 //                    console.log(a.nextElementSibling.style.top);
                 }
             }

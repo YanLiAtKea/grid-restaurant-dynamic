@@ -12,7 +12,7 @@ rem:
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Megrim', cursive;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
 body {
@@ -70,6 +70,7 @@ h1 {
     font-size: 2.9em;
     margin-top: 2.3em;
     text-align: right;
+    font-family: 'Megrim', cursive;
 }
 span {
     position: relative;
@@ -94,6 +95,7 @@ a p {
     position: absolute;
     top: 4em;
     color: #333;
+    font-family: 'Megrim', cursive;
 }
 h4 {
     font-size: 1.3em;
@@ -117,9 +119,9 @@ h4 {
     grid-template-rows: auto auto;
 }
 .category p.close {
-    font-size: 3em;
+    font-size: 1.7em;
     position: absolute;
-    top: 4em;
+    top: 191px;
     right: 0;
     cursor: n-resize;
 }
@@ -136,7 +138,7 @@ h4 {
     padding: 1em;
     grid-gap: 1em;
     grid-template-columns: 1fr;
-    align-items: flex-end;
+    align-items: flex-top;
 }
 .course:last-child {
     margin-bottom: 2em;
@@ -144,17 +146,16 @@ h4 {
 .course h4 {
     grid-row: 1/2;
     z-index: 3;
+    height: 3em;
 }
 .course-intro {
     display: grid;
     grid-auto-rows: minmax(2em, auto);
 }
-p.read-more {
-    font-size: 13px;
-    cursor: pointer;
-}
 .course img {
-    width: 100%;
+    height: 230px;
+    width: auto;
+    max-width: 100%;
     grid-column: 1/-1;
     grid-row: 3 / 4;
     z-index: 2;
@@ -175,11 +176,10 @@ p.read-more {
     width: 90%;
     margin: 5%;
     padding: 5%;
-    background-color: rgba(255,255,255,.7);
+    background-color: rgba(255,255,255,.8);
     z-index: 1;
 }
 .long-description p:nth-of-type(2){
-    font-family: sans-serif;
     font-size: .8em;
     font-weight: 300;
     line-height: 1.3em;
@@ -189,11 +189,8 @@ p.close-read-more {
     font-size: 23px;
     margin: 0 0 5% 0;
 }
-.extra-info {
-    border-right: 1px solid #777;
-}
 .extra-info p {
-    font-size: .7em;
+    font-size: .9em;
 }
 .course p.sold-out {
     font-size: 1.7em;
@@ -233,7 +230,7 @@ div.about p.about{
     font-size: 15px;
 }
 .hide {
-    display: none;
+    visibility: hidden;
 }
 @media screen and (min-width: 560px) {
     body {
@@ -303,7 +300,7 @@ div.about p.about{
         align-items: flex-start;
     }
     .course-list {
-        width: 80vw;
+        width: 76vw;
         margin-left: 2vw;
         margin-bottom: 3em;
         grid-template-columns: 1fr 1fr;
