@@ -6,6 +6,11 @@ fix:
 rem:
 
 */
+// show/hide about site info
+let aboutSiteButton = document.querySelector('footer>p');
+aboutSiteButton.addEventListener('click', ()=>aboutSiteButton.nextElementSibling.classList.add('on'));
+let aboutSite = document.querySelector('div.about');
+aboutSite.addEventListener('click', ()=>aboutSite.classList.remove('on'));
 
 let backgroundImg = "";
 let backgroundImgNr = 0;
@@ -253,7 +258,7 @@ function showCate(c){
     function expandAllCategory(){
         if(expandAllButton.textContent.indexOf('expand')>-1){
             as.forEach(a=>{a.parentElement.classList.add('expand')})
-            expandAllButton.innerHTML = "^ collapse";
+            expandAllButton.innerHTML = "^ collapse all";
         } else {
             expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
             closeAllCategory();
@@ -265,7 +270,7 @@ function showCate(c){
     as.forEach(a=>{
         a.addEventListener('click', expandCate);
         function expandCate(){
-            expandAllButton.innerHTML = "^ collapse";
+            expandAllButton.innerHTML = "^ collapse all";
             closeAllCategory(); // close all first
             a.parentElement.classList.add("expand"); // then only expand the one that's clicked
             categoryHeight = a.parentElement.clientHeight;
