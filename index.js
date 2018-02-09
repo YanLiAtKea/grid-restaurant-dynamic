@@ -254,9 +254,9 @@ function showCate(c){
     function expandAllCategory(){
         if(expandAllButton.textContent.indexOf('expand')>-1){
             as.forEach(a=>{a.parentElement.classList.add('expand')})
-            expandAllButton.innerHTML = "&#9776; collapse";
+            expandAllButton.innerHTML = "^ collapse";
         } else {
-            expandAllButton.innerHTML = "&#9776; expand all";
+            expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
             closeAllCategory();
         }
     }
@@ -266,7 +266,7 @@ function showCate(c){
     as.forEach(a=>{
         a.addEventListener('click', expandCate);
         function expandCate(){
-            expandAllButton.innerHTML = "&#9776; collapse";
+            expandAllButton.innerHTML = "^ collapse";
             closeAllCategory(); // close all first
             a.parentElement.classList.add("expand"); // then only expand the one that's clicked
             categoryHeight = a.parentElement.clientHeight;
@@ -290,7 +290,7 @@ function showCate(c){
     closeArrows.forEach(cA=>{
         cA.addEventListener('click', closeExpand);
         function closeExpand(){
-            expandAllButton.innerHTML = "&#9776; expand all";
+            expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
             as.forEach(a=>{a.parentElement.classList.remove('expand')});
             elemScrollY = 0;
         };

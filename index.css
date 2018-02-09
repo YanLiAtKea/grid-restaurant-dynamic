@@ -270,12 +270,12 @@ footer {
         font-size: 3.5em;
         height: 1em;
     }
-    #category-list {
+/*    #category-list {
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 4em;
         grid-row-gap: 2em;
         align-items: flex-start;
-    }
+    }*/
     .course {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
