@@ -148,22 +148,6 @@ function filterDiscount(){
 }
 // *************** end of filters
 
-//show nr of stars based on nr from database
-let starNr = document.querySelectorAll('.stars');
-starNr.forEach(showStars);
-function showStars(n){
-    if(/\d/.test(n.textContent)){
-        let filledStar = "&starf; ";
-        let emptyStar = "&star; ";
-        let filledStarNr = parseInt(n.textContent);
-        let allFilled = filledStar.repeat(filledStarNr);
-        let allEmpty = emptyStar.repeat(5-filledStarNr);
-        n.innerHTML = allFilled + allEmpty;
-    } else {
-        n.innerHTML = "&star; &star; &star; &star; &star;";
-    }
-}
-
 /*****************dynamic******************/
 // generate categories & display courses within each category
 const categoryLink = "http://kea-alt-del.dk/t5/api/categories";
@@ -207,11 +191,12 @@ function showCate(c){
                         // generate background img for the category
                         backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 41*backgroundImgNr +"px 0px no-repeat, ";
                         backgroundImgNr ++;
-                        // fetch long description from API
+                        // fetch details from API basd on course id
                         let detailLink = "http://kea-alt-del.dk/t5/api/product?id=";
                         let readMore = courseClone.querySelector('p.read-more');
                         let closeReadMoreButton = courseClone.querySelector('.close-read-more');
                         let longDes = courseClone.querySelector('.long-description p:last-of-type');
+                        let stars = courseClone.querySelector('p.stars');
                         fetch(detailLink+eachCourse.id).then(res=>res.json()).then(detail=>getDetail(detail));
                         function getDetail(d){
                             if(d.longdescription){
@@ -227,6 +212,12 @@ function showCate(c){
                                     }
                                 }
                             }
+                        // set stars
+                        let filledStar = "&starf; ";
+                        let emptyStar = "&star; ";
+                        let allFilled = filledStar.repeat(d.stars);
+                        let allEmpty = emptyStar.repeat(5-d.stars);
+                        stars.innerHTML = allFilled + allEmpty;
                         }
                         courseList.appendChild(courseClone);
                     }
@@ -291,7 +282,6 @@ function showCate(c){
     let closeArrows = document.querySelectorAll('p.close');
     closeArrows.forEach(cA=>{
         cA.addEventListener('click', closeExpand);
-        console.log(cA.previousElementSibling.parentElement.parentElement);
         function closeExpand(){
             expandAllButton.innerHTML = "&#9776; &nbsp; expand all";
             if(window.innerWidth > 960){
