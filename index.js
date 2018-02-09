@@ -10,29 +10,6 @@ rem:
 let backgroundImg = "";
 let backgroundImgNr = 0;
 
-///////////////// show long description when click on read-more ///////////////
-let readMore = document.querySelectorAll('.read-more');
-readMore.forEach(clickReadMore);
-function clickReadMore(r){
-    r.addEventListener('click', showLongDes);
-    function showLongDes(){
-        let longDescription = r.parentElement.nextElementSibling; // ?????????? nextSibling vs nextElementSibling. nextSibling needs 2 times to reach element. see below as well
-        longDescription.style.zIndex = "-1";
-        console.log(longDescription);
-    }
-}
-///////////////// hide long description when click on X ///////////////
-let closeReadMore = document.querySelectorAll('.close-read-more');
-closeReadMore.forEach(clickCloseReadMore);
-function clickCloseReadMore(r){
-    r.addEventListener('click', hideLongDes);
-    function hideLongDes(){
-        let longDescription = r.parentElement.previousSibling.previousSibling; // ?????????? why previous previous is the img???
-        longDescription.style.zIndex = "2";
-        console.log(longDescription);
-    }
-}
-
 /////////// filters
 // filter effect
 const buttons = document.querySelectorAll('button');
@@ -192,12 +169,13 @@ function showStars(n){
 }
 
 /*****************dynamic******************/
-// generate categories, display courses within each category
+// generate categories & display courses within each category
 const categoryLink = "http://kea-alt-del.dk/t5/api/categories";
 fetch(categoryLink).then(categories=>categories.json()).then(cate=>showCate(cate));
 function showCate(c){
     c.forEach(
         cat=>{
+            // could also use createElement for each category in stead of using template
             const categoryTemplate = document.querySelector('.category-template').content;
             const categoryClone = categoryTemplate.cloneNode(true);
             categoryClone.querySelector('.category').classList.add(cat);
@@ -206,7 +184,7 @@ function showCate(c){
             categoryClone.querySelector('a p').textContent = cat.toUpperCase() + ".";
             const categoryList = document.querySelector('#category-list');
             categoryList.appendChild(categoryClone);
-            /* show only courses with in category*/
+            /* get courses and show only courses within category*/
             const courseLink = "http://kea-alt-del.dk/t5/api/productlist";
             fetch(courseLink).then(course=>course.json()).then(c=>showCourse(c));
             function showCourse(course){
@@ -233,6 +211,27 @@ function showCate(c){
                         // generate background img for the category
                         backgroundImg += "url(http://kea-alt-del.dk/t5/site/imgs/small/" + eachCourse.image + "-sm.jpg) "+ 41*backgroundImgNr +"px 0px no-repeat, ";
                         backgroundImgNr ++;
+                        // fetch long description from API
+                        let detailLink = "http://kea-alt-del.dk/t5/api/product?id=";
+                        let readMore = courseClone.querySelector('p.read-more');
+                        let closeReadMoreButton = courseClone.querySelector('.close-read-more');
+                        let longDes = courseClone.querySelector('.long-description p:last-of-type');
+                        fetch(detailLink+eachCourse.id).then(res=>res.json()).then(detail=>getDetail(detail));
+                        function getDetail(d){
+                            if(d.longdescription){
+                                readMore.classList.remove('hide'); // only show "read more" when there is a long description for this course
+                                readMore.addEventListener('click', showLongDesc);
+                                function showLongDesc(){
+                                    readMore.parentElement.nextElementSibling.nextElementSibling.classList.remove('hide');
+                                    readMore.parentElement.nextElementSibling.style.zIndex = "-1";
+                                    longDes.textContent = d.longdescription;
+                                    closeReadMoreButton.addEventListener('click', closeReadMore)
+                                    function closeReadMore(){
+                                        closeReadMoreButton.parentElement.classList.add('hide');
+                                    }
+                                }
+                            }
+                        }
                         courseList.appendChild(courseClone);
                     }
                 })
