@@ -29,6 +29,9 @@ nav>span {
     cursor: pointer;
     display: block;
 }
+sub {
+    font-family: 'Megrim', cursive;
+}
 nav {
     display: block;
     position: fixed;
@@ -153,8 +156,8 @@ h4 {
     grid-auto-rows: minmax(2em, auto);
 }
 .course img {
-    height: 230px;
-    width: auto;
+    width: 300px;
+    height: auto;
     max-width: 100%;
     grid-column: 1/-1;
     grid-row: 3 / 4;
@@ -187,7 +190,7 @@ h4 {
 p.close-read-more {
     cursor: pointer;
     font-size: 23px;
-    margin: 0 0 5% 0;
+    margin: 0 0 2% 0;
 }
 .extra-info p {
     font-size: .9em;
