@@ -4,149 +4,8 @@ update category  height when click on filter button, so that close button can be
 fix:
 
 rem:
-
 */
-// show/hide about site info
-let aboutSiteButton = document.querySelector('footer>p');
-aboutSiteButton.addEventListener('click', ()=>aboutSiteButton.nextElementSibling.classList.add('on'));
-let aboutSite = document.querySelector('div.about');
-aboutSite.addEventListener('click', ()=>aboutSite.classList.remove('on'));
 
-let backgroundImg = "";
-let backgroundImgNr = 0;
-
-//************** filters
-// filter effect
-const buttons = document.querySelectorAll('button');
-const hr = document.querySelector('hr');
-buttons.forEach(b=>{
-    b.addEventListener('click', filterE);
-    function filterE(){
-        hr.classList.add('filter');
-        hr.addEventListener('animationend', resetHr);
-        function resetHr(){
-            hr.classList.remove("filter");
-        }
-    }
-})
-// vegetar
-let vegetarButton = document.querySelector('button.vegetar');
-vegetarButton.addEventListener('click', filterVegetar);
-function filterVegetar(){
-    // remove other filters
-    //allergentButton.classList.remove('on');
-    alcoholButton.classList.remove('on');
-    soldOutButton.classList.remove('on');
-    discountButton.classList.remove('on');
-    // when filter on, border turns red
-    vegetarButton.classList.toggle('on');
-    let vegetars = document.querySelectorAll('.veg-status');
-    vegetars.forEach(toggleVegetar);
-    function toggleVegetar(v){
-        if(v.textContent && vegetarButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        } else if(!v.textContent && vegetarButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "none";
-        } else if (!vegetarButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        }
-    }
-}
-/*
-//allergens
-let allergentButton = document.querySelector('button.allergen');
-//allergentButton.addEventListener('click', filterAllergens);
-function filterAllergens(){
-    // remove other filters
-    vegetarButton.classList.remove('on');
-    alcoholButton.classList.remove('on');
-    soldOutButton.classList.remove('on');
-    discountButton.classList.remove('on');
-    // when filter on, border turns red
-    allergentButton.classList.toggle('on');
-    let allergens = document.querySelectorAll('.allergens');
-    allergens.forEach(toggleAllergens);
-    function toggleAllergens(v){
-        if(!v.textContent && allergentButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        } else if(v.textContent && allergentButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "none";
-        } else if (!allergentButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        }
-    }
-}
-*/
-//alcohol
-let alcoholButton = document.querySelector('button.alcohol');
-alcoholButton.addEventListener('click', filterAlcohol);
-function filterAlcohol(){
-    // remove other filters
-    vegetarButton.classList.remove('on');
-    //allergentButton.classList.remove('on');
-    soldOutButton.classList.remove('on');
-    discountButton.classList.remove('on');
-    // when filter on, border turns red
-    alcoholButton.classList.toggle('on');
-    let alcohols = document.querySelectorAll('.alcohol-status');
-    alcohols.forEach(toggleAlcohols);
-    function toggleAlcohols(v){
-        if(!v.textContent && alcoholButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        } else if(v.textContent && alcoholButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "none";
-        } else if (!alcoholButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        }
-    }
-}
-//sold-out
-let soldOutButton = document.querySelector('button.sold-out');
-soldOutButton.addEventListener('click', filterSoldOut);
-function filterSoldOut(){
-    // remove other filters
-    vegetarButton.classList.remove('on');
-    alcoholButton.classList.remove('on');
-    //allergentButton.classList.remove('on');
-    discountButton.classList.remove('on');
-    // when filter on, border turns red
-    soldOutButton.classList.toggle('on');
-    let soldOuts = document.querySelectorAll('.sold-out-status');
-    soldOuts.forEach(toggleSoldOut);
-    function toggleSoldOut(v){
-        if(!v.textContent && soldOutButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        } else if(v.textContent && soldOutButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "none";
-        } else if (!soldOutButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        }
-    }
-}
-// discount
-let discountButton = document.querySelector('button.discount');
-discountButton.addEventListener('click', filterDiscount);
-function filterDiscount(){
-    // remove other filters
-    vegetarButton.classList.remove('on');
-    alcoholButton.classList.remove('on');
-    //allergentButton.classList.remove('on');
-    soldOutButton.classList.remove('on');
-    // when filter on, border turns red
-    discountButton.classList.toggle('on');
-    let discounts = document.querySelectorAll('.discount-price');
-    discounts.forEach(toggleDiscount);
-    function toggleDiscount(v){
-        if(v.textContent && discountButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        } else if(!v.textContent && discountButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "none";
-        } else if (!soldOutButton.classList.contains('on')){
-            v.parentElement.parentElement.style.display = "inherit";
-        }
-    }
-}
-// *************** end of filters
 
 /*****************dynamic******************/
 // generate categories & display courses within each category
@@ -293,3 +152,156 @@ function showCate(c){
     })
 }
 /****************** end of dynamic *******************/
+
+
+// show/hide about site info
+let aboutSiteButton = document.querySelector('footer>p');
+aboutSiteButton.addEventListener('click', ()=>aboutSiteButton.nextElementSibling.classList.add('on'));
+let aboutSite = document.querySelector('div.about');
+aboutSite.addEventListener('click', ()=>aboutSite.classList.remove('on'));
+
+let backgroundImg = "";
+let backgroundImgNr = 0;
+
+//************** filters
+// filter effect
+const buttons = document.querySelectorAll('button');
+const hr = document.querySelector('hr');
+buttons.forEach(b=>{
+    b.addEventListener('click', filterE);
+    function filterE(){
+        hr.classList.add('filter');
+        hr.addEventListener('animationend', resetHr);
+        function resetHr(){
+            hr.classList.remove("filter");
+        }
+    }
+})
+// vegetar
+let vegetarButton = document.querySelector('button.vegetar');
+vegetarButton.addEventListener('click', filterVegetar);
+function filterVegetar(){
+    // remove other filters
+    //allergentButton.classList.remove('on');
+    alcoholButton.classList.remove('on');
+    soldOutButton.classList.remove('on');
+    discountButton.classList.remove('on');
+    // when filter on, border turns red
+    vegetarButton.classList.toggle('on');
+    let vegetars = document.querySelectorAll('.veg-status');
+    vegetars.forEach(toggleVegetar);
+    function toggleVegetar(v){
+        if(v.textContent && vegetarButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        } else if(!v.textContent && vegetarButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "none";
+        } else if (!vegetarButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        }
+    }
+}
+/*
+//allergens
+let allergentButton = document.querySelector('button.allergen');
+//allergentButton.addEventListener('click', filterAllergens);
+function filterAllergens(){
+    // remove other filters
+    vegetarButton.classList.remove('on');
+    alcoholButton.classList.remove('on');
+    soldOutButton.classList.remove('on');
+    discountButton.classList.remove('on');
+    // when filter on, border turns red
+    allergentButton.classList.toggle('on');
+    let allergens = document.querySelectorAll('.allergens');
+    allergens.forEach(toggleAllergens);
+    function toggleAllergens(v){
+        if(!v.textContent && allergentButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        } else if(v.textContent && allergentButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "none";
+        } else if (!allergentButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        }
+    }
+}
+*/
+//alcohol
+let alcoholButton = document.querySelector('button.alcohol');
+alcoholButton.addEventListener('click', filterAlcohol);
+function filterAlcohol(){
+    // remove other filters
+    vegetarButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
+    soldOutButton.classList.remove('on');
+    discountButton.classList.remove('on');
+    // when filter on, border turns red
+    alcoholButton.classList.toggle('on');
+    let alcohols = document.querySelectorAll('.alcohol-status');
+    alcohols.forEach(toggleAlcohols);
+    function toggleAlcohols(v){
+        if(!v.textContent && alcoholButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        } else if(v.textContent && alcoholButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "none";
+        } else if (!alcoholButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        }
+    }
+}
+//sold-out
+let soldOutButton = document.querySelector('button.sold-out');
+soldOutButton.addEventListener('click', filterSoldOut);
+function filterSoldOut(){
+    // remove other filters
+    vegetarButton.classList.remove('on');
+    alcoholButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
+    discountButton.classList.remove('on');
+    // when filter on, border turns red
+    soldOutButton.classList.toggle('on');
+    let soldOuts = document.querySelectorAll('.sold-out-status');
+    soldOuts.forEach(toggleSoldOut);
+    function toggleSoldOut(v){
+        if(!v.textContent && soldOutButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        } else if(v.textContent && soldOutButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "none";
+        } else if (!soldOutButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        }
+    }
+}
+// discount
+let discountButton = document.querySelector('button.discount');
+discountButton.addEventListener('click', filterDiscount);
+function filterDiscount(){
+    // remove other filters
+    vegetarButton.classList.remove('on');
+    alcoholButton.classList.remove('on');
+    //allergentButton.classList.remove('on');
+    soldOutButton.classList.remove('on');
+    // when filter on, border turns red
+    discountButton.classList.toggle('on');
+    let discounts = document.querySelectorAll('.discount-price');
+    discounts.forEach(toggleDiscount);
+    function toggleDiscount(v){
+        if(v.textContent && discountButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        } else if(!v.textContent && discountButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "none";
+        } else if (!soldOutButton.classList.contains('on')){
+            v.parentElement.parentElement.style.display = "inherit";
+        }
+    }
+}
+// *************** end of filters
+
+// window width
+window.addEventListener('resize', mediaQ);
+function mediaQ(){
+    if(window.innerWidth >= 960 && document.querySelector('sub').textContent.indexOf('collapse') < 0){ //so that when downsize from >960px and category is expanded, category-list doesn't change to 3fr
+        document.querySelector('#category-list').style.gridTemplateColumns = "1fr 1fr";
+    } else {
+        document.querySelector('#category-list').style.gridTemplateColumns = "1fr";
+    }
+}
